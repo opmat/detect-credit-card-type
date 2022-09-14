@@ -33,6 +33,11 @@ class Detector
         return preg_match("/^3(?:0[0-5]|[68][0-9])[0-9]{4,}$/i", $card);
     }
 
+    private function isVerve(string $card) : bool
+    {
+        return preg_match("/^([506]{3})([0-9]{1,16})$/i", $card);
+    }
+
     public function detect(string $card) : string
     {
         $cardTypes = [
@@ -41,7 +46,8 @@ class Detector
             'MasterCard',
             'Discover',
             'JCB',
-            'DinersClub'
+            'DinersClub',
+            'Verve'
         ];
         foreach ($cardTypes as $cardType) {
             $method = 'is' . $cardType;
